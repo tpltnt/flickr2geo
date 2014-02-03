@@ -23,19 +23,18 @@ func main() {
 	 if err != nil {
 		log.Fatal(err)
 	 }
-     if bytes.Contains(html, []byte("flickr_photos:location:latitude")) {
-        fmt.Println("latitude information found")
-     } else {
+     if !bytes.Contains(html, []byte("flickr_photos:location:latitude")) {
         fmt.Println("no latitude information found")
         os.Exit(11)
      }
      
-     if bytes.Contains(html, []byte("flickr_photos:location:longitude")) {
-        fmt.Println("longitude information found")
-     } else {
-        fmt.Println("no latitude information found")
+     if !bytes.Contains(html, []byte("flickr_photos:location:longitude")) {
+        fmt.Println("no longitude information found")
         os.Exit(12)
      }
-     
-	 //fmt.Printf("%s\n", html)
+     datachunks := bytes.Split(html, []byte("flickr_photos:location"))
+     lat := bytes.Split(datachunks[1], []byte("\""))[2]
+     lon := bytes.Split(datachunks[2], []byte("\""))[2]
+     fmt.Printf("latitude = %s\n", lat)
+	 fmt.Printf("longitude = %s\n", lon)
 }
