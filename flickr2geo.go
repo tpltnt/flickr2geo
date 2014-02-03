@@ -1,6 +1,7 @@
 package main
 
 import (
+    "bytes"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -22,5 +23,19 @@ func main() {
 	 if err != nil {
 		log.Fatal(err)
 	 }
-	 fmt.Printf("%s\n", html)
+     if bytes.Contains(html, []byte("flickr_photos:location:latitude")) {
+        fmt.Println("latitude information found")
+     } else {
+        fmt.Println("no latitude information found")
+        os.Exit(11)
+     }
+     
+     if bytes.Contains(html, []byte("flickr_photos:location:longitude")) {
+        fmt.Println("longitude information found")
+     } else {
+        fmt.Println("no latitude information found")
+        os.Exit(12)
+     }
+     
+	 //fmt.Printf("%s\n", html)
 }
