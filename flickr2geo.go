@@ -37,4 +37,5 @@ func main() {
      lon := bytes.Split(datachunks[2], []byte("\""))[2]
      fmt.Printf("latitude = %s\n", lat)
 	 fmt.Printf("longitude = %s\n", lon)
+     fmt.Printf("for awk: %s %s\n", lat, lon)
 }
